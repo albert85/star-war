@@ -18,7 +18,7 @@ function App() {
     if(Number(e.target.value) !== 0) {
       const [filtered] = data?.results?.filter((eachFilm: StarWarFilmInterface) => eachFilm.episode_id === Number(e.target.value))
       filtered?.characters?.map(async (eachCharacter: string) => {
-        const response = await movieAPI.fetchCharacter({ url: eachCharacter });
+        const response = await movieAPI.fetchCharacter({ url: eachCharacter.replace(/http/g, "https") });
         setSelectCharacter((prev): StarWarCharacterInterface[] => [ ...prev, {...response, height: Number(response.height), gender: selectGender(response?.gender)}])
       })
       return setSelectMovie(filtered);
